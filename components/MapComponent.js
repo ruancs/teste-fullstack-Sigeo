@@ -9,7 +9,7 @@ const MapComponent = () => {
   useEffect(() => {
 
     const loadArcGIS = () => {
-      // Adiciona o CSS
+
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = 'https://js.arcgis.com/4.30/esri/themes/light/main.css';
@@ -29,14 +29,13 @@ const MapComponent = () => {
       document.body.appendChild(script);
     };
 
-    // Função para buscar os locais
+
     const fetchLocations = async () => {
       const response = await fetch('app/api/locations');
       const data = await response.json();
       setLocations(data);
     };
 
-    // Função para inicializar o mapa
     const initMap = () => {
       const mapComponent = document.createElement('arcgis-map');
       mapComponent.setAttribute('item-id', '05e015c5f0314db9a487a9b46cb37eca'); // Substitua pelo seu item ID
@@ -45,10 +44,9 @@ const MapComponent = () => {
       legend.setAttribute('position', 'bottom-right');
       mapComponent.appendChild(legend);
 
-      // Adiciona o mapa ao elemento de referência
+
       mapRef.current.appendChild(mapComponent);
 
-      // Adiciona gráficos de locais
       locations.forEach((location) => {
         const point = {
           type: 'point',
@@ -64,13 +62,10 @@ const MapComponent = () => {
         mapComponent.appendChild(graphic);
       });
     };
-
-    // Carregar os locais e a API
     fetchLocations();
     loadArcGIS();
 
     return () => {
-      // Limpar elementos quando o componente for desmontado
       if (mapRef.current) {
         mapRef.current.innerHTML = '';
       }
@@ -79,7 +74,7 @@ const MapComponent = () => {
 
   return (
     <div>
-      <h1>Mapa de Localidades de Niterói</h1>
+      <h1>Mapa de Localidades de salva vidas de Niterói</h1>
       <div ref={mapRef} style={{ width: '100%', height: '100vh' }} />
     </div>
   );
